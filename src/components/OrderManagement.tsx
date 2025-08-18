@@ -5,7 +5,7 @@ import { getOrdersData, createNewOrder, deleteOrder, updateOrderStatus, updateOr
 import { Order } from '../types';
 import Papa from 'papaparse';
 
-const OrderManagement: React.FC = () => {
+const OrderManagement: React.FC<{ setIsModalOpen: (isOpen: boolean) => void }> = ({ setIsModalOpen }) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,7 +19,7 @@ const OrderManagement: React.FC = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   
   const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   const fetchAndSetOrders = async () => {
@@ -90,11 +90,11 @@ const OrderManagement: React.FC = () => {
   const handleViewDetails = (event: React.MouseEvent, order: Order) => {
     event.preventDefault();
     setSelectedOrder(order);
-    setIsModalOpen(true);
+    setIsDetailsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
+    setIsDetailsModalOpen(false);
     setSelectedOrder(null);
   };
 
@@ -860,7 +860,7 @@ const OrderManagement: React.FC = () => {
       )}
 
       {/* Modals */}
-      {isModalOpen && selectedOrder && (
+      {isDetailsModalOpen && selectedOrder && (
         <OrderDetailsModal order={selectedOrder} onClose={handleCloseModal} />
       )}
       

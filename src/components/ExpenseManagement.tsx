@@ -5,7 +5,7 @@ import { getExpensesData, createNewExpense, deleteExpense, updateExpense } from 
 import { Expense } from '../types';
 import Papa from 'papaparse';
 
-const ExpenseManagement: React.FC = () => {
+const ExpenseManagement:React.FC<{ setIsModalOpen: (isOpen: boolean) => void }> = ({ setIsModalOpen }) => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
