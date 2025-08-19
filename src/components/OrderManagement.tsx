@@ -3,6 +3,7 @@ import { Plus, Search, MessageCircle, Eye, Edit, Trash2, X, ArrowUpDown, Downloa
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { getOrdersData, createNewOrder, deleteOrder, updateOrderStatus, updateOrder } from '../services/api';
 import { Order } from '../types';
+import { NewOrderPayload } from '../types';
 import Papa from 'papaparse';
 
 const OrderManagement: React.FC<{ setIsModalOpen: (isOpen: boolean) => void }> = ({ setIsModalOpen }) => {
@@ -960,10 +961,10 @@ const OrderDetailsModal = ({ order, onClose }: { order: Order | null, onClose: (
 // =======================================================
 interface NewOrderModalProps {
   onClose: () => void;
-  onSave: (orderData: any) => Promise<void>;
+  onSave: (orderData: NewOrderPayload) => Promise<void>;
 }
 
-const NewOrderModal = ({ onClose, onSave }: NewOrderModalProps) => {
+export const NewOrderModal = ({ onClose, onSave }: NewOrderModalProps) => {
   const [item, setItem] = useState('');
   const [qty, setQty] = useState(1);
   const [rate, setRate] = useState('');

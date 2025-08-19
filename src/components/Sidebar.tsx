@@ -6,6 +6,7 @@ import {
   Settings, 
   LogOut,
   Store,
+  ClipboardList,
   DollarSign 
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -23,6 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
     { id: 'orders', label: 'Orders', icon: ShoppingBag },
     { id: 'customers', label: 'Customers', icon: Users },
     { id: 'expenses', label: 'Expenses', icon: DollarSign },
+    { id: 'inventory', label: 'Inventory', icon: ClipboardList },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 

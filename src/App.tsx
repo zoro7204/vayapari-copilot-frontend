@@ -6,6 +6,7 @@ import ExpenseManagement from './components/ExpenseManagement';
 
 const Dashboard = React.lazy(() => import('./components/Dashboard'));
 const OrderManagement = React.lazy(() => import('./components/OrderManagement'));
+const InventoryManagement = React.lazy(() => import('./components/InventoryManagement'));
 const CustomerManagement = React.lazy(() => import('./components/CustomerManagement'));
 const Settings = React.lazy(() => import('./components/Settings'));
 
@@ -43,8 +44,9 @@ const AppContent: React.FC = () => {
         return <CustomerManagement {...props} />;
       case 'expenses':
         return <ExpenseManagement {...props} />;
-      case 'settings':
-        return <Settings />;
+      case 'inventory': // <-- ADD THIS NEW CASE
+        return <InventoryManagement />;  
+        return <Settings />
       default:
         return <Dashboard />;
     }

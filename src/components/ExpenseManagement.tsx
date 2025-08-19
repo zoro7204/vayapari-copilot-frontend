@@ -679,13 +679,19 @@ const ExpenseManagement:React.FC<{ setIsModalOpen: (isOpen: boolean) => void }> 
 
 export default ExpenseManagement;
 
-// Modal Components with Enhanced Styling
-interface NewExpenseModalProps {
-  onClose: () => void;
-  onSave: (expenseData: { item: string; category: string; amount: number; }) => Promise<void>;
+// First, define the type if it doesn't exist in this file
+interface NewExpensePayload {
+    item: string;
+    category: string;
+    amount: number;
 }
 
-const NewExpenseModal = ({ onClose, onSave }: NewExpenseModalProps) => {
+interface NewExpenseModalProps {
+  onClose: () => void;
+  onSave: (expenseData: NewExpensePayload) => Promise<void>;
+}
+
+export const NewExpenseModal = ({ onClose, onSave }: NewExpenseModalProps) => {
   const [item, setItem] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
