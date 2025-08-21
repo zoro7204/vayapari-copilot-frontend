@@ -90,3 +90,17 @@ export interface Expense {
   amount: number;
   date: string;
 }
+
+export interface InventoryItem {
+  id: string;
+  itemName: string;
+  category?: string;
+  quantity: number;
+  costPrice: number;
+  sellingPrice: number;
+  lowStockThreshold?: number;
+  lastSoldDate?: string;
+  createdAt?: string; 
+  unitsSold?: number; 
+  generatedRevenue?: number; 
+}

@@ -37,7 +37,7 @@ const AppContent: React.FC = () => {
     const props = { setIsModalOpen }; // Pass the setter to all components
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard />; // Dashboard doesn't have modals yet
+        return <Dashboard shopName="ClothShop" />; // Dashboard doesn't have modals yet
       case 'orders':
         return <OrderManagement {...props} />;
       case 'customers':
@@ -46,9 +46,10 @@ const AppContent: React.FC = () => {
         return <ExpenseManagement {...props} />;
       case 'inventory': // <-- ADD THIS NEW CASE
         return <InventoryManagement />;  
+      case 'settings':
         return <Settings />
       default:
-        return <Dashboard />;
+        return <Dashboard shopName="ClothShop" />;
     }
   };
 

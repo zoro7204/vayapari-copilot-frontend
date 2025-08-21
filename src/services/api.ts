@@ -319,3 +319,110 @@ export const getExpensesCsv = async () => {
     // You could show an error to the user here
   }
 };
+
+export const getInventoryData = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/inventory`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching inventory data:", error);
+    return []; // Return an empty array on error
+  }
+};
+
+/**
+ * Creates a new inventory item.
+ * @param {any} itemData - The data for the new item.
+ * @returns {Promise<any>} - The newly created item data.
+ */
+export const createInventoryItem = async (itemData: any) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/inventory`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(itemData),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to create inventory item');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error creating inventory item:", error);
+    throw error;
+  }
+};
+
+/**
+ * Updates an existing inventory item by its ID.
+ * @param {string} itemId - The ID of the item to update.
+ * @param {any} updates - An object containing the fields to update.
+ * @returns {Promise<any>} - The server's response message.
+ */
+export const updateInventoryItem = async (itemId: string, updates: any) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/inventory/${itemId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updates),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update inventory item');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating inventory item:", error);
+    throw error;
+  }
+};
+
+/**
+ * Deletes an inventory item by its ID.
+ * @param {string} itemId - The ID of the item to delete.
+ * @returns {Promise<any>} - The server's response message.
+ */
+export const deleteInventoryItem = async (itemId: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/inventory/${itemId}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to delete inventory item');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error deleting inventory item:", error);
+    throw error;
+  }
+};
+
+export const uploadInventoryCsv = async (file: File) => {
+  // 1. Create a FormData object to hold the file
+  const formData = new FormData();
+  formData.append('inventoryFile', file);
+
+  try {
+    // 2. Send it to the backend endpoint using fetch
+    const response = await fetch(`${BASE_URL}/api/inventory/upload`, {
+      method: 'POST',
+      body: formData,
+      // Note: We don't set Content-Type header; the browser does it for us with FormData
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to upload CSV');
+    }
+
+    return await response.json();
+
+  } catch (error) {
+    console.error("Error uploading inventory CSV:", error);
+    throw error;
+  }
+};
