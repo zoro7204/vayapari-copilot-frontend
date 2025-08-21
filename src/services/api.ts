@@ -426,3 +426,40 @@ export const uploadInventoryCsv = async (file: File) => {
     throw error;
   }
 };
+
+// --- ADD THESE AT THE BOTTOM OF api.ts ---
+
+export const getShopProfile = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/shop-profile`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch shop profile');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching shop profile:", error);
+    throw error;
+  }
+};
+
+export const updateShopProfile = async (profileData: any) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/shop-profile`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(profileData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update shop profile');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating shop profile:", error);
+    throw error;
+  }
+};
